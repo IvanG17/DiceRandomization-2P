@@ -113,10 +113,11 @@ function hold() {
             document.getElementById(`score--${activePlayer}`).textContent = 100;
             document.getElementById(`current--${activePlayer}`).textContent = 0;
             currentScore = 0;
-            updateStatus(activePlayer);
+
             playing = false;
             document.querySelector(`.player--${activePlayer}`).classList.add('player--winner');
-            document.querySelector(`.player--$ { activePlayer }`).classList.toggle('player--active');
+            document.querySelector(`.player--${activePlayer}`).classList.remove('player--active');
+            updateStatus(activePlayer);
 
         }
 
@@ -134,19 +135,20 @@ function hold() {
 }
 
 function updateStatus(activePlayer) {
+    console.log(activePlayer);
     if (activePlayer === 0) {
-        document.getElementById(`
-                name--$ { activePlayer }
-                    `).textContent = `
-                    Player 1 wins!`;
+        document.getElementById(`name--${ activePlayer }`).textContent = "Player 1 wins!";
 
         document.getElementById('name--1').textContent = "Player 2 loses.";
     } else if (activePlayer === 1) {
-        document.getElementById(`
-                    name--$ { activePlayer }
-                    `).textContent = `
-                    Player 2 wins!`;
+        document.getElementById(`name--${ activePlayer } `).textContent = `Player 2 wins!`;
 
         document.getElementById('name--0').textContent = "Player 1 loses.";
     }
+}
+
+btnNew.addEventListener('click', reset);
+
+function reset() {
+    document.location.reload();
 }
