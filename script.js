@@ -4,20 +4,14 @@
 let score1 = document.getElementById('score--0');
 let score2 = document.getElementById('score--1');
 let currentScore1 = document.getElementById('current--0');
-let currentScore2 = document.getElementById('currentScore1');
+let currentScore2 = document.getElementById('current--1');
 let dice = document.querySelector(".dice");
 let btnNew = document.querySelector(".btn--new");
 let btnRoll = document.querySelector(".btn--roll");
 let btnHold = document.querySelector(".btn--hold");
 
-let score1Text = score1.textContent;
-let score2Text = score2.textContent;
-
-//document.querySelector(".player--1").classList.add()
-
-score1 = 0;
-score2 = 0;
-
+score1.textContent = 0;
+score2.textContent = 0;
 dice.classList.add('hidden');
 
 // Adding Event Listeners 
@@ -25,7 +19,7 @@ dice.classList.add('hidden');
 btnRoll.addEventListener("click", roll);
 let currentScore = 0;
 let activePlayer = 0;
-const scoresArr = [0, 0];
+let scoresArr = [0, 0];
 
 function roll() {
 
@@ -40,16 +34,16 @@ function roll() {
         dice.src = 'dice-1.png';
         currentScore = 0;
         document.getElementById(`current--${activePlayer}`).textContent = currentScore;
-        if (activePlayer === 0) {
-            activePlayer = 1;
+        // if (activePlayer === 0) {
+        //     activePlayer = 1;
 
-        } else if (activePlayer === 1) {
-            activePlayer = 0;
+        // } else if (activePlayer === 1) {
+        //     activePlayer = 0;
 
-        }
+        // }
         // swiching backgrounds for active player 
         //switchPlayer(activePlayer);
-        switchPlayer();
+        activePlayer = switchPlayer(activePlayer);
 
 
     } else if (diceNumber !== 1) {
@@ -80,7 +74,36 @@ function diceScore(diceNum, activePlay, currScore) {
     return currScore;
 }
 
-function switchPlayer() {
+function switchPlayer(activePlayer) {
+    if (activePlayer === 0) {
+        activePlayer = 1;
+    } else if (activePlayer === 1) {
+        activePlayer = 0;
+    }
     document.querySelector('.player--1').classList.toggle('player--active');
     document.querySelector('.player--0').classList.toggle('player--active');
+    return activePlayer;
+}
+
+
+// hold option 
+
+btnHold.addEventListener('click', hold);
+
+function hold() {
+    // add current score to active player's score
+    scoresArr[activePlayer] += currentScore;
+    console.log(scoresArr[activePlayer]);
+    document.getElementById(`score--${activePlayer}`).textContent = scoresArr[activePlayer];
+    document.getElementById(`current--${activePlayer}`).textContent = 0;
+    currentScore = 0;
+    // if score >= 100, game ends 
+
+    // if not, add current score to overall score and swtich player 
+
+    if (scoresArr[activePlayer] < 100) {
+        activePlayer = switchPlayer(activePlayer);
+
+    }
+
 }
