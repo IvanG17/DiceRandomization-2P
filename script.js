@@ -9,6 +9,7 @@ let dice = document.querySelector(".dice");
 let btnNew = document.querySelector(".btn--new");
 let btnRoll = document.querySelector(".btn--roll");
 let btnHold = document.querySelector(".btn--hold");
+let btnDirections = document.querySelector(".btn--directions");
 
 score1.textContent = 0;
 score2.textContent = 0;
@@ -151,4 +152,19 @@ btnNew.addEventListener('click', reset);
 
 function reset() {
     document.location.reload();
+}
+
+btnDirections.addEventListener('click', directions);
+//document.addEventListener('keydown', closeWindow(e));
+document.querySelector('.close-modal').addEventListener('click', function() {
+    document.querySelector('.modal').classList.add('hidden');
+    document.querySelector('.overlay').classList.add('hidden');
+    console.log('x');
+    playing = true;
+})
+
+function directions() {
+    document.querySelector('.modal').classList.remove('hidden');
+    document.querySelector('.overlay').classList.remove('hidden');
+    playing = false;
 }
