@@ -13,6 +13,8 @@ let btnHold = document.querySelector(".btn--hold");
 let score1Text = score1.textContent;
 let score2Text = score2.textContent;
 
+//document.querySelector(".player--1").classList.add()
+
 score1 = 0;
 score2 = 0;
 
@@ -36,10 +38,19 @@ function roll() {
 
     if (diceNumber === 1) {
         dice.src = 'dice-1.png';
-        if (activePlayer === 0)
+        currentScore = 0;
+        document.getElementById(`current--${activePlayer}`).textContent = currentScore;
+        if (activePlayer === 0) {
             activePlayer = 1;
-        else if (activePlayer === 1)
+
+        } else if (activePlayer === 1) {
             activePlayer = 0;
+
+        }
+        // swiching backgrounds for active player 
+        //switchPlayer(activePlayer);
+        switchPlayer();
+
 
     } else if (diceNumber !== 1) {
         console.log(diceNumber);
@@ -67,4 +78,9 @@ function diceScore(diceNum, activePlay, currScore) {
     currScore += diceNum;
     document.getElementById(`current--${activePlay}`).textContent = currScore;
     return currScore;
+}
+
+function switchPlayer() {
+    document.querySelector('.player--1').classList.toggle('player--active');
+    document.querySelector('.player--0').classList.toggle('player--active');
 }
