@@ -92,12 +92,26 @@ btnHold.addEventListener('click', hold);
 
 function hold() {
     // add current score to active player's score
-    scoresArr[activePlayer] += currentScore;
-    console.log(scoresArr[activePlayer]);
-    document.getElementById(`score--${activePlayer}`).textContent = scoresArr[activePlayer];
-    document.getElementById(`current--${activePlayer}`).textContent = 0;
-    currentScore = 0;
+    if (scoresArr[activePlayer] + currentScore < 100) {
+        scoresArr[activePlayer] += currentScore;
+        //console.log(scoresArr[activePlayer]);
+        document.getElementById(`score--${activePlayer}`).textContent = scoresArr[activePlayer];
+        document.getElementById(`current--${activePlayer}`).textContent = 0;
+        currentScore = 0;
+
+
+    }
+
     // if score >= 100, game ends 
+
+    if (scoresArr[activePlayer] + currentScore >= 100) {
+        scoresArr[activePlayer] += currentScore;
+        document.getElementById(`score--${activePlayer}`).textContent = 100;
+        document.getElementById(`current--${activePlayer}`).textContent = 0;
+        currentScore = 0;
+        updateStatus(activePlayer);
+    }
+
 
     // if not, add current score to overall score and swtich player 
 
@@ -106,4 +120,16 @@ function hold() {
 
     }
 
+}
+
+function updateStatus(activePlayer) {
+    if (activePlayer === 0) {
+        document.getElementById(`name--${activePlayer}`).textContent = `Player 1 wins!`;
+
+        document.getElementById('name--1').textContent = "Player 2 loses.";
+    } else if (activePlayer === 1) {
+        document.getElementById(`name--${activePlayer}`).textContent = `Player 2 wins!`;
+
+        document.getElementById('name--0').textContent = "Player 1 loses.";
+    }
 }
